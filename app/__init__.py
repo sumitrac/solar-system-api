@@ -12,5 +12,9 @@ def create_app(test_config=None):
     
     db.init_app(app)
     migrate.init_app(app, db)
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> e65b2c5c8ea0dba44c74d56f49e4ff17c3fddcc4
     return app
