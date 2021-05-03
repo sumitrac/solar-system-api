@@ -33,12 +33,25 @@ def handle_planets():
 # accessing a direct planet using their ID 
 # By "getting" we can then -- > Put, Delete
 
-@planets_bp.route("/<planet_id>", methods=["GET"])
+@planets_bp.route("/<planet_id>", methods=["GET", "PUT"])
 def handle_planet(planet_id):
     planets = Planet.query.get(planet_id)
 
-    return {
-        "id": planet.id,
-        "name": planet.name,
-        "description": planet.description
-    }
+    if request.method == "GET":
+        return {
+            "id": planet.id,
+            "name": planet.name,
+            "description": planet.description 
+        }
+    elif request.method == "PUT":
+        planet_data = request.get_json()
+
+        planet.name = planet_data["name"]
+        planet.description = planet_data["description"]
+
+        db.session.commit()
+
+        return make_response(f"Planet #{planet.id} successfully updated")
+
+
+
