@@ -35,7 +35,7 @@ def handle_planets():
 # accessing a direct planet using their ID 
 # By "getting" we can then -- > Put, Delete
 
-@planets_bp.route("/<planet_id>", methods=["GET", "PUT"])
+@planets_bp.route("/<planet_id>", methods=["GET", "PUT", "DELETE"])
 def handle_planet(planet_id):
     planets = Planet.query.get(planet_id)
 
