@@ -39,30 +39,29 @@ def handle_planets():
 def handle_planet(planet_id):
     planets = Planet.query.get(planet_id)
 
-<<<<<<< HEAD
-    return {
-        "id": planet.id,
-        "name": planet.name,
-        "description": planet.description,
-        "planet_moons": planet.planet_moons
-    }
-=======
-    if request.method == "GET":
+    if planets is None:
+        return make_response("", 404)
+    elif request.method == "GET":
         return {
-            "id": planet.id,
-            "name": planet.name,
-            "description": planet.description 
+            "id": planets.id,
+            "name": planets.name,
+            "description": planets.description,
+            "planet_moons": planets.planet_moons 
         }
     elif request.method == "PUT":
         planet_data = request.get_json()
 
-        planet.name = planet_data["name"]
-        planet.description = planet_data["description"]
+        planets.name = planet_data["name"]
+        planets.description = planet_data["description"]
 
         db.session.commit()
 
-        return make_response(f"Planet #{planet.id} successfully updated")
+        return make_response(f"Planet #{planets.id} successfully updated")
+
+    elif request.method == "DELETE":
+        db.session.delete(planets)
+        db.session.commit()
+        return make_response(f"Planet #{planets.id} successfully deleted")
 
 
 
->>>>>>> 7d37785c0d88ad1bfd904b1b675603363e5aa3a3
