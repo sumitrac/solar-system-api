@@ -16,13 +16,15 @@ def handle_planets():
             planets_response.append({
                 "id": planet.id,
                 "name": planet.name,
-                "description": planet.description
+                "description": planet.description,
+                "planet_moons": planet.planet_moons
             })
         return jsonify(planets_response)
     elif request.method == "POST":
         request_body = request.get_json()
         new_planet = Planet(name=request_body["name"],
-                        description=request_body["description"])
+                        description=request_body["description"],
+                        planet_moons=request_body["planet_moons"]),
 
 
         db.session.add(new_planet)     
